@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import connect as conexao
 import datetimezone as datetime
-import teste_drop_create_tb_cart as dctb
+import drop_create_tb_cart as dctb
 import listcases
 import insertdb
 import log

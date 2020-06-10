@@ -6,8 +6,8 @@ import log
 
 def busca_arquivo_s3(identificador_arquivo):
     date = '2020-05-04' #datetime.date_time_zn().data
-    bucket_name = 'meu-time-qa'
-    object_key = f'repositorio/{identificador_arquivo}-{date}.csv'
+    bucket_name = 'meu-time-qa' #nomedobucker
+    object_key = f'repositorio/{identificador_arquivo}-{date}.csv' #alterar o nome do repositorio
     #print(object_key)
     conn_s3 = conexao.connect_s3().s3_client
     #body = None
