@@ -10,7 +10,7 @@ import read_data_s3 as reads3
 import log
 
 
-startTime = datetime.date_time_zn().now
+#startTime = datetime.date_time_zn().now
 
 def p2p_pag_loader_delayd_receivables_arq(identificador_arquivo):
     df = pd.read_csv(reads3.busca_arquivo_s3(identificador_arquivo), sep=";", doublequote=False)
@@ -64,4 +64,4 @@ def p2p_pag_loader_delayd_receivables_arq(identificador_arquivo):
     except Exception as err:
         log.logger.error(err)
         raise err
-print(datetime.date_time_zn().now - startTime)
+#print(datetime.date_time_zn().now - startTime)

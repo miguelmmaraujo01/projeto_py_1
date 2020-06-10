@@ -9,7 +9,7 @@ import insertdb
 import read_data_s3 as reads3
 import log
 
-startTime = datetime.date_time_zn().now
+#startTime = datetime.date_time_zn().now
 def p2p_create_tb_carteira_aging(identificador_arquivo):
     df = pd.read_csv(reads3.busca_arquivo_s3(identificador_arquivo), sep=";", doublequote=False)
 
@@ -107,4 +107,4 @@ def p2p_create_tb_carteira_aging(identificador_arquivo):
         log.logger.error(err)
         raise err
     
-print(datetime.date_time_zn().now - startTime)    
+#print(datetime.date_time_zn().now - startTime)    
