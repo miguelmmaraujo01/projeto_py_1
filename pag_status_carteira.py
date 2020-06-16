@@ -1,8 +1,9 @@
 import pandas as pd
 import os
+import numpy as np
 import connect as conexao
 import datetimezone as datetime
-import drop_create_tb_cart as dctb
+import teste_drop_create_tb_cart as dctb
 import listcases
 import insertdb
 import log
@@ -11,6 +12,8 @@ import log
 
 
 def create_tb_carteira_status():
+    retorno = 0
+    descr_erro = 'Sucesso'
     conn = conexao.connect_db().oracle
 
     dctb.drop_create_tb_cart()  #funcao que cria estrutura de tabelas para buscar carteira do cliente
@@ -32,9 +35,10 @@ def create_tb_carteira_status():
 
         df_cart_sts_valor['totalmr'] = df_cart_sts_valor.sum(axis = 1)
         df_cart_sts_valor.loc['totalmr'] = df_cart_sts_valor.sum(axis = 0)
+        df_cart_sts_valor['num_rank'] = np.arange(1,len(df_cart_sts_valor)+1)
             
         lista_array = list(df_cart_sts_valor.to_records(index=True, column_dtypes=dict))
-        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_valor (status_carteira, capital, whitelabel, totalmr) values (:1, :2, :3, :4)"
+        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_valor (status_carteira, capital, whitelabel, totalmr, num_rank) values (:1, :2, :3, :4, :5)"
 
         table_name = ("credito.cart_cobr_sts_cart_valor")
         insertdb.insertDataBase(lista_array, query_insert, table_name)
@@ -48,9 +52,10 @@ def create_tb_carteira_status():
 
         df_cart_sts_qtd_op['totalmr'] = df_cart_sts_qtd_op.sum(axis = 1)
         df_cart_sts_qtd_op.loc['totalmr'] = df_cart_sts_qtd_op.sum(axis = 0)
+        df_cart_sts_qtd_op['num_rank'] = np.arange(1,len(df_cart_sts_qtd_op)+1)
 
         lista_array = list(df_cart_sts_qtd_op.to_records(index=True, column_dtypes=dict))
-        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_qtd (status_carteira, capital, whitelabel, totalmr) values (:1, :2, :3, :4)"
+        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_qtd (status_carteira, capital, whitelabel, totalmr, num_rank) values (:1, :2, :3, :4, :5)"
     
         table_name = ("credito.cart_cobr_sts_cart_qtd")
         insertdb.insertDataBase(lista_array, query_insert, table_name)
@@ -69,10 +74,11 @@ def create_tb_carteira_status():
 
         df_cart_carteira_op_porc['totalmr'] = df_cart_carteira_op_porc.sum(axis = 1)
         df_cart_carteira_op_porc.loc['totalmr'] = df_cart_carteira_op_porc.sum(axis = 0)
+        df_cart_carteira_op_porc['num_rank'] = np.arange(1,len(df_cart_carteira_op_porc)+1)
 
 
         lista_array = list(df_cart_carteira_op_porc.to_records(index=True, column_dtypes=dict))
-        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_porc (status_carteira, capital, whitelabel, totalmr) values (:1, :2, :3, :4)"
+        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_porc (status_carteira, capital, whitelabel, totalmr, num_rank) values (:1, :2, :3, :4, :5)"
 
         table_name = ("credito.cart_cobr_sts_cart_porc")
         insertdb.insertDataBase(lista_array, query_insert, table_name)
@@ -91,9 +97,11 @@ def create_tb_carteira_status():
 
         df_cart_carteira_valor['TOTALMR'] = df_cart_carteira_valor.sum(axis = 1)
         df_cart_carteira_valor.loc['TOTALMR'] = df_cart_carteira_valor.sum(axis = 0)
+        df_cart_carteira_valor['NUM_RANK'] = np.arange(1,len(df_cart_carteira_valor)+1)
+        
 
         lista_array = list(df_cart_carteira_valor.to_records(index=True, column_dtypes=dict))
-        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_aging_valor (AGING, ZERO, GERENTEVIRTUAL, LONGTAIL, PARCERIAS, BERCARIO,SUBADQUIRENTE,EMPRESAS,VAREJO, ISO, TOTALMR) values (:0, :1, :2, :3, :4, :5, :6, :7, :8, :9, :10)"
+        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_aging_valor (AGING, ZERO, GERENTEVIRTUAL, LONGTAIL, PARCERIAS, BERCARIO,SUBADQUIRENTE,EMPRESAS,VAREJO, ISO, TOTALMR, NUM_RANK) values (:0, :1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)"
 
         table_name = ("credito.cart_cobr_sts_cart_aging_valor")
         insertdb.insertDataBase(lista_array, query_insert, table_name)
@@ -108,9 +116,10 @@ def create_tb_carteira_status():
 
         df_cart_sts_aging_qtd_op['TOTALMR'] = df_cart_sts_aging_qtd_op.sum(axis = 1)
         df_cart_sts_aging_qtd_op.loc['TOTALMR'] = df_cart_sts_aging_qtd_op.sum(axis = 0)
+        df_cart_sts_aging_qtd_op['NUM_RANK'] = np.arange(1,len(df_cart_sts_aging_qtd_op)+1)
 
         lista_array = list(df_cart_sts_aging_qtd_op.to_records(index=True, column_dtypes=dict))
-        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_aging_qtd (AGING, ZERO, GERENTEVIRTUAL, LONGTAIL, PARCERIAS, BERCARIO,SUBADQUIRENTE,EMPRESAS,VAREJO, ISO, TOTALMR)  values (:0, :1, :2, :3, :4, :5, :6, :7, :8, :09 ,:10)"
+        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_aging_qtd (AGING, ZERO, GERENTEVIRTUAL, LONGTAIL, PARCERIAS, BERCARIO,SUBADQUIRENTE,EMPRESAS,VAREJO, ISO, TOTALMR, NUM_RANK)  values (:0, :1, :2, :3, :4, :5, :6, :7, :8, :09 ,:10, :11)"
 
         table_name = ("credito.cart_cobr_sts_cart_aging_qtd")
         insertdb.insertDataBase(lista_array, query_insert, table_name)
@@ -137,10 +146,11 @@ def create_tb_carteira_status():
 
         df_cart_sts_aging_qtd_porc['TOTALMR'] = df_cart_sts_aging_qtd_porc.sum(axis = 1)
         df_cart_sts_aging_qtd_porc.loc['TOTALMR'] = df_cart_sts_aging_qtd_porc.sum(axis = 0)
+        df_cart_sts_aging_qtd_porc['NUM_RANK'] = np.arange(1,len(df_cart_sts_aging_qtd_porc)+1)
 
         lista_array = list(df_cart_sts_aging_qtd_porc.to_records(index=True, column_dtypes=dict))
         
-        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_aging_porc (AGING, ZERO, GERENTEVIRTUAL, LONGTAIL, PARCERIAS, BERCARIO,SUBADQUIRENTE,EMPRESAS,VAREJO, ISO, TOTALMR) values (:0, :1, :2, :3, :4, :5, :6, :7, :8, :9, :10)"
+        query_insert = "INSERT /*array */ INTO credito.cart_cobr_sts_cart_aging_porc (AGING, ZERO, GERENTEVIRTUAL, LONGTAIL, PARCERIAS, BERCARIO,SUBADQUIRENTE,EMPRESAS,VAREJO, ISO, TOTALMR, NUM_RANK) values (:0, :1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11)"
         
         table_name = ("credito.cart_cobr_sts_cart_aging_porc")
         insertdb.insertDataBase(lista_array, query_insert, table_name)
@@ -148,7 +158,10 @@ def create_tb_carteira_status():
 
     except Exception as err:
         log.logger.error(err)
-        raise err
+        #raise err
+        retorno = 1
+        descr_erro = str(err)
+    return retorno, descr_erro
 #print(datetime.date_time_zn().now - startTime)
 
     conn.close()
