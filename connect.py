@@ -28,6 +28,7 @@ class connect_database():
     def __init__(self):
         #self.postgres = psycopg2.connect("dbname='%s' user='%s' host='%s' password='%s'" % (db, usr, hst, psw))
         self.s3_client = boto3.client('s3',aws_access_key_id=key ,aws_secret_access_key=secret_key, region_name=region)
+        self.s3_client_akron_upload = boto3.Session(aws_access_key_id=key_akron ,aws_secret_access_key=secret_key_akron, region_name=region_akron)
         self.oracle = cx_Oracle.connect(connstr)
 
 def connect_db():
