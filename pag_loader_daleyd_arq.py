@@ -62,6 +62,8 @@ def pag_loader_delayd_receivables_arq(identificador_arquivo):
 		#dois fluxos desenvolvidos para utilizar rank e row_number - PENSAR SE DEVE OU NAO UTILIZAR
 		#rank seq de linhas carregadas
 		arq_csv_colun_sele['rank'] = np.arange(1,len(arq_csv_colun_sele)+1)
+		
+		reads3.envia_arquivo_s3(arq_csv_colun_sele,identificador_arquivo)
 
 		#row_num seq de vezes que o processo foi exec ao dia
 		SQL = ("select x.RANK_NUM, nvl(max(x.row_num),1)+1 as ROW_NUM_QUERY from (select  rank_num, ROW_NUMBER() OVER (PARTITION BY RANK_NUM ORDER BY RANK_NUM DESC ) AS ROW_NUM  from credito.teste_rank_py WHERE TRUNC(DAT_IMPORT) >= TRUNC(SYSDATE))x group by x.rank_num")
