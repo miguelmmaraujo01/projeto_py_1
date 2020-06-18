@@ -78,3 +78,4 @@ def envia_arquivo_s3(param_df, identificador_arquivo): #carregar bucket akron - 
         #print(csv_obj)
     except Exception as err:
         log.logger.error(err)
+    return 0
