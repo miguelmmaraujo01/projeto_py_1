@@ -1,4 +1,4 @@
-# Projeto Python 1
+# Projeto Python 1 - pandas s3 bd relacional
 #Desenvolvimento buscando aprendizado, utilizando python com pandas, boto3, pyarrow. Gerando dados consolidados em BD
 
 Fluxo buscando arquivo csv de um bucket s3. 
